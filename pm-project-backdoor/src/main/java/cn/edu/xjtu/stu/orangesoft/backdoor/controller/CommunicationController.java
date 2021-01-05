@@ -28,6 +28,31 @@ public class CommunicationController {
      *
      * @param UserID       账号
      * @param UserPassword 密码
+     * @return if (无权访问) return ResultInfo: {
+     * "resultInfo": String
+     * } else return List[String]
+     */
+    @PostMapping(value = "/get/allCommunication", produces = "application/json;charset=UTF-8")
+    public String GetAllCommunication(@RequestParam("UserID") Integer UserID,
+                                      @RequestParam("UserPassword") String UserPassword) {
+        Objects objects = DIUtil.getBean(Objects.class);
+        Operation operation = DIUtil.getBean(Operation.class);
+        objects.setObjectName("communication");
+        operation.setOperationDescription("GET");
+        if (rbacService.CheckPermission(UserID, UserPassword, objects, operation)) {
+            return gson.toJson(communicationService.GetAllCommunication());
+        } else {
+            ResultInfo resultInfo = DIUtil.getBean(ResultInfo.class);
+            resultInfo.setResultInfo("无权访问！！");
+            return gson.toJson(resultInfo);
+        }
+    }
+
+    /**
+     * 查看交流信息
+     *
+     * @param UserID       账号
+     * @param UserPassword 密码
      * @param TeamID       小组ID
      * @return if (无权访问) return ResultInfo: {
      * "resultInfo": String
@@ -67,7 +92,7 @@ public class CommunicationController {
                                     @RequestParam("UserPassword") String UserPassword,
                                     @RequestParam("TeamID") Integer TeamID,
                                     @RequestParam("Context") String Context,
-                                    @RequestParam("FileID") Integer FileID) {
+                                    @RequestParam(value = "FileID", defaultValue = "0") Integer FileID) {
         Objects objects = DIUtil.getBean(Objects.class);
         Operation operation = DIUtil.getBean(Operation.class);
         ResultInfo resultInfo;

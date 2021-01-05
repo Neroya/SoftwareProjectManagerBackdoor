@@ -11,7 +11,9 @@ import java.util.List;
 @Mapper
 @Repository
 public interface CommunicationMapper {
-    List<String> GetCommunication(@Param("TeamID") Integer TeamID);
+    List<Communication> GetCommunication(@Param("TeamID") Integer TeamID);
+
+    List<Communication> GetAllCommunication();
 
     int PostCommunication(@Param("Communication") Communication Communication);
 

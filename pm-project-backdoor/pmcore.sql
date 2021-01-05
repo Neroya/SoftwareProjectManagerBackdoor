@@ -11,7 +11,7 @@
  Target Server Version : 50647
  File Encoding         : 65001
 
- Date: 02/01/2021 17:38:29
+ Date: 03/01/2021 19:48:34
 */
 
 SET NAMES utf8mb4;
@@ -23,19 +23,18 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `Communication`;
 CREATE TABLE `Communication`
 (
-    `CommunicationID` int(11)                                                      NOT NULL AUTO_INCREMENT,
-    `Context`         varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-    `UserID`          int(11)                                                      NOT NULL,
-    `FileID`          int(11)                                                      NULL DEFAULT NULL,
-    `TeamID`          int(11)                                                      NOT NULL,
+    `CommunicationID` int(11)                                                        NOT NULL AUTO_INCREMENT,
+    `Context`         varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+    `UserID`          int(11)                                                        NOT NULL,
+    `FileID`          int(11)                                                        NULL DEFAULT NULL,
+    `TeamID`          int(11)                                                        NOT NULL,
     PRIMARY KEY (`CommunicationID`) USING BTREE,
     UNIQUE INDEX `XPKCommunication` (`CommunicationID`) USING BTREE,
     INDEX `R_21` (`UserID`) USING BTREE,
     INDEX `R_22` (`TeamID`) USING BTREE,
-    CONSTRAINT `Communication_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-    CONSTRAINT `Communication_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `Team` (`TeamID`) ON DELETE RESTRICT ON UPDATE RESTRICT
+    CONSTRAINT `Communication_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 21
+  AUTO_INCREMENT = 34
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Compact;
@@ -96,7 +95,7 @@ CREATE TABLE `FileInfo`
     CONSTRAINT `FileInfo_ibfk_1` FOREIGN KEY (`TeamID`) REFERENCES `Team` (`TeamID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `FileInfo_ibfk_2` FOREIGN KEY (`StudentUserID`) REFERENCES `Student` (`StudentUserID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 60
+  AUTO_INCREMENT = 65
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Compact;
@@ -199,7 +198,7 @@ CREATE TABLE `Project`
     PRIMARY KEY (`ProjectID`) USING BTREE,
     UNIQUE INDEX `XPKProject` (`ProjectID`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 8
+  AUTO_INCREMENT = 18
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Compact;
@@ -243,7 +242,7 @@ CREATE TABLE `ProjectCompletion`
     CONSTRAINT `ProjectCompletion_ibfk_2` FOREIGN KEY (`TeamID`) REFERENCES `Team` (`TeamID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `ProjectCompletion_ibfk_3` FOREIGN KEY (`MilestoneID`) REFERENCES `Milestone` (`MilestoneID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 6
+  AUTO_INCREMENT = 9
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Compact;
@@ -281,7 +280,7 @@ CREATE TABLE `RolePowerAssignment`
     CONSTRAINT `RolePowerAssignment_ibfk_1` FOREIGN KEY (`RoleID`) REFERENCES `Role` (`RoleID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
     CONSTRAINT `RolePowerAssignment_ibfk_2` FOREIGN KEY (`ConfigID`) REFERENCES `PermissionConfig` (`ConfigID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 124
+  AUTO_INCREMENT = 304
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Compact;
@@ -383,7 +382,7 @@ CREATE TABLE `TodoList`
     INDEX `R_40` (`UserID`) USING BTREE,
     CONSTRAINT `TodoList_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `User` (`UserID`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 7
+  AUTO_INCREMENT = 15
   CHARACTER SET = utf8mb4
   COLLATE = utf8mb4_general_ci
   ROW_FORMAT = Compact;
